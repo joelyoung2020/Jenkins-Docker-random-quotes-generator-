@@ -13,6 +13,7 @@
 - sudo cat /var/lib/jenkins/secrets/initialAdminPassword  ( to view inital password )
 - Install suggested pluggins
 - Install pluggins( docker, docker pipeline, Kubernetes CLI )
+- Configure maven: give a name and path is /usr/share/maven
 
 # Docker
 - Install Docker
