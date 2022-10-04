@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: random-quote-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: random-quote
+  template:
+    metadata:
+      labels:
+        app: random-quote
+    spec:
+      containers:
+      - name: random-quote-generator
+        image: joelyoung/random-quote
+        ports:
+        - containerPort: 80
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: random-quote-svc
+  name: random-quote-svc
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+  selector:
+    app: random-quote
