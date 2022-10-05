@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('check out') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/joelyoung2020/Jenkins-ECR--EKS.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/joelyoung2020/Jenkins-Dockerhub-Docker-Random-quotes-generator-.git']]])
             }
         }
         stage('build mvn') {
