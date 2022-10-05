@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: random-quote-generator
-        image: joelyoung/random-quote
+        image: joelyoung/random-quotes
         ports:
         - containerPort: 80
 # service type loadbalancer       
