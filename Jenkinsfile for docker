@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    environment {
+        registry = 'joelyoung/random-quotes'
+        dockerhub=credentials('dockerhub')
+    }
+    tools {
+        maven 'Maven'
+    }
+    stages {
+        stage('check out') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/joelyoung2020/Jenkins-Dockerhub-Docker-Random-quotes-generator-.git']]])
+            }
+        }
+        stage('build mvn') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+        stage('building image') {
+            steps {
+                script {
+                    docker.build registry
+                }
+            }
+        }
+        stage('pushing to dockerhub'){
+            steps {
+                sh 'echo $dockerhub_PWD | docker login -u $dockerhub_USR --password-stdin'
+                sh 'docker push joelyoung/random-quotes'
+            }
+        }
+        stage('running on docker') {
+            steps {
+                sh 'docker run -p 80:80 -d joelyoung/random-quotes'
+            }
+        }
+    }
